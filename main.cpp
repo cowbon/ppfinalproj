@@ -17,12 +17,14 @@ int main(int argc, char** argv){
 	//cin >> type >> depth >> b_factor;
 	//gettimeofday(&tv1, NULL);
 	t1 = clock();
-	//param* var = new param(depth, b_factor, root, true);
-	//paragenerateSearchTree(var);
-	//root = var->root;
-	root = generateSearchTree(depth, b_factor, root);
+	param* var = new param(depth, b_factor, root, true);
+	paragenerateSearchTree(var);
+	root = var->root;
+	//root = generateSearchTree(depth, b_factor, root);
 	//gettimeofday(&tv2, NULL);
 	t1 = clock()-t1;
+	cout << "Search value: " << value << "Generate search tree:" <<(double) t1;
+	t1 = clock();
 	value = MinMax(root, INT_MIN+1, INT_MAX);
 	/*switch(type){
 		case 0:
@@ -38,14 +40,15 @@ int main(int argc, char** argv){
 			break;
 	}*/
 	//gettimeofday(&tv3, NULL);
-	t2 = clock()-t1;
+	t1 = clock()-t1;
+	cout<<"Run time:"<<(double)t1<<' '<<value<<endl;
+	t1 = clock();
 	value = AlphaBeta(root, INT_MIN, INT_MAX, true);
-	t3 = clock()-t2;
+	t1 = clock()-t1;
+	cout<<"AlphaBeta"<<(double)t1<<' '<<value<<endl;
+	t1 = clock();
 	value = paraAlphaBeta(root, b_factor);
-	t4 = clock()-t3;
-	cout << "Search value: " << value << "Generate search tree:" <<(double) t1;
-	cout<<"Run time:"<<(double)t2<<endl;
-	cout<<"AlphaBeta"<<(double)t3<<endl;
-	cout<<"paraAlphaBeta"<<(double)t4<<endl;
+	t1 = clock()-t1;
+	cout<<"paraAlphaBeta"<<(double)t1<<' '<<value<<endl;
 	return 0;
 }
