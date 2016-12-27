@@ -83,3 +83,45 @@ int MinMax(node* currentNode, int alpha, int beta){
 		}
 		return bestValue;
 }
+
+void* paragenerateSearchTree(void* var){
+	node *ind;
+	param* par = (param*)var;
+	if(par->root == NULL){
+		ind = new node;
+		ind->sibling = NULL;
+		ind->parent = NULL;
+		ind->min_or_max = true;
+		par->root = ind;
+	}
+	if(par->depth == 1){
+		par->root->children = NULL;
+		par->root->value = rand();
+		return par->root;
+	}
+	ind = new node;
+	par->root->children = ind;
+	if (par->para){
+		pthread_t threads[par->branch_factor];
+		int num_of_thread = par->branch_factor <= 9 ? par->branch_factor-1 : 8;
+		for(int i = 1; i <= num_of_thread; i++){
+			param tmp(par->depth-1, par->branch_factor, ind, false);
+			pthread_create(&threads[i], NULL, paragenerateSearchTree, (void*)&tmp);
+		}
+
+		for(int  i = 1; i <=par->branch_factor; i++)
+			pthread_join(threads[i], NULL);
+	} else {
+		for(int i = 1; i <= par->branch_factor; i++){
+			ind->parent = par->root;
+			ind->min_or_max = !(par->root->min_or_max);
+			generateSearchTree(par->depth - 1, par->branch_factor, ind);
+			if(i < par->branch_factor){
+				ind->sibling = new node;
+				ind = ind->sibling;
+			}
+			else ind->sibling = NULL;
+		}
+	}
+	return par->root;
+}

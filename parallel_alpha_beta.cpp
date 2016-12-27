@@ -117,7 +117,7 @@ int paraAlphaBeta(node* root, int branch_factor){
 	//current = current->parent;
 	cur_bound = current->value;
 	b_factor_global = branch_factor;
-	num_of_thread = branch_factor <= 9 ? branch_factor-1 : 8;
+	num_of_thread = 2;//branch_factor <= 9 ? branch_factor-1 : 8;
 	counter = 0;
 	pthread_barrier_init(&barr, NULL, num_of_thread);
 	//counter0 = 0;
