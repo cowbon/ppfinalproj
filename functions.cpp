@@ -102,3 +102,36 @@ int MinMax(node* currentNode){
 	}
 	return bestValue;
 }
+
+void* parallel_(void* tmp){
+	alphabeta* target = (alphabeta*)tmp;
+
+	for (int  i = target->idx; i < target->branch_factor; i+=target->num_of_thread){
+		//cout <<target->idx<<' '<<i<<' ' <<target->branch_factor<<' '<<target->num_of_thread<<endl; 
+		int childValue = AlphaBeta(target->temp+i, INT_MIN, INT_MAX, false);
+		//cout<<target->idx<<":"<<childValue<<endl;
+		//target->result[target->idx] = std::max(target->result[target->idx], childValue);
+		if (childValue > *(target->result+target->idx*sizeof(int))) *(target->result+target->idx*sizeof(int)) = childValue;
+		//cout<<*(target->result+target->idx*sizeof(int))<<endl;
+	}
+
+	return NULL;
+}
+
+int newparaAlphaBeta(node* currentNode, int branch_factor, int num_of_thread, int* result, pthread_t* thr, alphabeta** t){
+
+	int bestValue = INT_MIN;
+	for(int i = 0; i < num_of_thread; i++){
+		pthread_create(&thr[i], NULL, &parallel_, (void*)t[i]);
+	}
+	for(int i = 0; i < num_of_thread; i++)
+		pthread_join(thr[i], NULL);
+
+	for(int i = 0; i < num_of_thread; i++){
+		//cout<<*(result+i*sizeof(int))<<' ';
+		bestValue = std::max(bestValue, *(result+i*sizeof(int)));
+	}
+	//cout<<endl;
+	//pthread_barrier_destroy(&barr);
+	return bestValue;
+}

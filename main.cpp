@@ -50,5 +50,22 @@ int main(int argc, char** argv){
 	value = paraAlphaBeta(root, b_factor);
 	t1 = clock()-t1;
 	cout<<"paraAlphaBeta"<<(double)t1<<' '<<value<<endl;
+
+	node* idx = root->children;
+	if (root->children == 0)
+		return root->min_or_max ? root->value : root->value * (-1);
+
+	int num_of_thread = 2;//b_factor <= 5 ? b_factor-1 : 4;
+	int* result = new int[num_of_thread];
+	pthread_t thr[num_of_thread];
+	alphabeta* t[num_of_thread];
+
+	for (int i = 0; i < num_of_thread; i++)
+		t[i] = new alphabeta(idx, result, b_factor, num_of_thread, i);
+
+	t1 = clock();
+	value = newparaAlphaBeta(root, b_factor, num_of_thread, result, thr, t);
+	t1 = clock()-t1;
+	cout<<"new"<<(double)t1<<' '<<value<<endl;
 	return 0;
 }

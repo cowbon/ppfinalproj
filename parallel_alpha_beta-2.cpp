@@ -3,7 +3,7 @@
 #include <climits>
 //#include <semaphore.h>
 #include "node.h"
-#include "functions.h"
+//#include "functions.h"
 #include "parallel_alpha_beta.h"
 //#define NUM_OF_THREAD 4
 
