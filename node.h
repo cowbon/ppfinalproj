@@ -6,9 +6,9 @@ typedef struct node node;
 struct node{
 	int value;
 	node* children;
-	//int nchildren;
+	int num_of_children;
 	node* parent;
-	node* sibling;
+	//node* sibling;
 	bool min_or_max; // true for max node, false for min node
 };
 

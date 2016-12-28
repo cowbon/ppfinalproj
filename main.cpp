@@ -17,13 +17,13 @@ int main(int argc, char** argv){
 	//cin >> type >> depth >> b_factor;
 	//gettimeofday(&tv1, NULL);
 	t1 = clock();
-	param* var = new param(depth, b_factor, root, true);
-	paragenerateSearchTree(var);
-	root = var->root;
-	//root = generateSearchTree(depth, b_factor, root);
+	//param* var = new param(depth, b_factor, root, true);
+	//paragenerateSearchTree(var);
+	//root = var->root;
+	root = generateSearchTree(depth, b_factor, root);
 	//gettimeofday(&tv2, NULL);
 	t1 = clock()-t1;
-	cout << "Search value: " << value << "Generate search tree:" <<(double) t1;
+	cout << "Search value: " << value << "Generate search tree:" <<(double) t1<<endl;
 	t1 = clock();
 	value = MinMax(root, INT_MIN+1, INT_MAX);
 	/*switch(type){

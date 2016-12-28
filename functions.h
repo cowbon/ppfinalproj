@@ -20,6 +20,7 @@ node* generateSearchTree(int depth, int branch_factor, node* root);
 int AlphaBeta(node* currentNode, int alpha, int beta, bool maximisingPlayer);
 //int MinMax(node* currentNode, bool maximisingPlayer);
 int MinMax(node*, int, int);
+int MinMax(node*);
 void* paragenerateSearchTree(void*);
 
 #endif
