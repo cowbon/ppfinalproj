@@ -9,7 +9,7 @@ using namespace std;
 
 int main(int argc, char** argv){
 	//struct timeval tv1, tv2, tv3;
-	clock_t t1, t2, t3, t4;
+	clock_t t1;
 	int type = atoi(argv[1]), depth = atoi(argv[1]), b_factor = atoi(argv[2]), value;
 	node *root = NULL;
 	srand(time(NULL));
@@ -23,7 +23,7 @@ int main(int argc, char** argv){
 	root = generateSearchTree(depth, b_factor, root);
 	//gettimeofday(&tv2, NULL);
 	t1 = clock()-t1;
-	cout << "Search value: " << value << "Generate search tree:" <<(double) t1<<endl;
+	cout << "Generate search tree:" <<(double) t1<<endl;
 	t1 = clock();
 	value = MinMax(root, INT_MIN+1, INT_MAX);
 	/*switch(type){
