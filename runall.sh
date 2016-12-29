@@ -5,12 +5,18 @@ if [ ! -f a.out ]; then
 	make
 fi
 
-testset=(5 7 10 12 15 20)
+testset=(5 7 10 12 15)
+depth=(3 5 7 10)
 
-echo "Test different branch factor with the same depth=3"
 
-for i in ${testset[@]}
+for i in ${depth[@]}
 do
-	echo "Branch factor = $i"
-	./a.out 3 $i
+	echo "--------------------------------------------------"
+	echo "Test different branch factor with the same depth=$i"
+	for j in ${testset[@]}
+	do
+		echo "Branch factor = $j"
+		./a.out $i $j
+		echo ""
+	done
 done

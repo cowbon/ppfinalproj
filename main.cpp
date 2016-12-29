@@ -13,7 +13,7 @@ int main(int argc, char** argv){
 	int type = atoi(argv[1]), depth = atoi(argv[1]), b_factor = atoi(argv[2]), value;
 	node *root = NULL;
 	srand(time(NULL));
-	cout << "Input search type, search tree depth, and branching factor respectively\n";
+	//cout << "Input search type, search tree depth, and branching factor respectively\n";
 	//cin >> type >> depth >> b_factor;
 	//gettimeofday(&tv1, NULL);
 	t1 = clock();
@@ -41,15 +41,15 @@ int main(int argc, char** argv){
 	}*/
 	//gettimeofday(&tv3, NULL);
 	t1 = clock()-t1;
-	cout<<"Run time:"<<(double)t1<<' '<<value<<endl;
+	cout<<"Run time:"<<(double)t1<<' '<<"value:"<<value<<endl;
 	t1 = clock();
 	value = AlphaBeta(root, INT_MIN, INT_MAX, true);
 	t1 = clock()-t1;
-	cout<<"AlphaBeta"<<(double)t1<<' '<<value<<endl;
+	cout<<"AlphaBeta runtime:"<<(double)t1<<' '<<"value:"<<value<<endl;
 	t1 = clock();
 	value = paraAlphaBeta(root, b_factor);
 	t1 = clock()-t1;
-	cout<<"paraAlphaBeta"<<(double)t1<<' '<<value<<endl;
+	cout<<"paraAlphaBeta runtime:"<<(double)t1<<' '<<"value:"<<value<<endl;
 
 	node* idx = root->children;
 	if (root->children == 0)
@@ -66,6 +66,6 @@ int main(int argc, char** argv){
 	t1 = clock();
 	value = newparaAlphaBeta(root, b_factor, num_of_thread, result, thr, t);
 	t1 = clock()-t1;
-	cout<<"new"<<(double)t1<<' '<<value<<endl;
+	cout<<"paraAlphaBeta2 runtime:"<<(double)t1<<' '<<"value:"<<value<<endl;
 	return 0;
 }
